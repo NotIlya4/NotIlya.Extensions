@@ -1,6 +1,6 @@
 ﻿using NotIlya.Extensions.ConnectionStringExtensions;
 
-namespace NotIlya.Extensions.Tests;
+namespace NotIlya.Extensions.Tests.ConnectionStringExtensions;
 
 public class RedisConnectionStringBuilderTests
 {

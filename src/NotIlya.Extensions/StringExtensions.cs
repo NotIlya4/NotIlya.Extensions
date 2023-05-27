@@ -6,4 +6,14 @@ public static class StringExtensions
     {
         return string.Join(separator, strings);
     }
+
+    public static bool EqualsIgnoreCase(this string thisString, string? other)
+    {
+        if (other is null)
+        {
+            return false;
+        }
+
+        return thisString.Equals(other, StringComparison.OrdinalIgnoreCase);
+    }
 }
