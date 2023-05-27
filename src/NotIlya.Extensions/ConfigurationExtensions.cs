@@ -46,29 +46,6 @@ public static class ConfigurationExtensions
         return config;
     }
 
-    internal static void IfContains<T>(this IConfiguration config, string ifContainsKey, Action<T> lambdaWhenContains)
-    {
-        config.IfContains(new [] { ifContainsKey }, lambdaWhenContains);
-    }
-    
-    internal static void IfContains<T>(this IConfiguration config, IEnumerable<string> ifContainsKeys, Action<T> lambdaWhenContains)
-    {
-        foreach (string ifContainsKey in ifContainsKeys)
-        {
-            IConfigurationSection innerConfig = config.GetSection(ifContainsKey);
-
-            if (innerConfig.Value is not null)
-            {
-                T? value = innerConfig.Get<T>();
-
-                if (value is not null)
-                {
-                    lambdaWhenContains(value);
-                }
-            }
-        }
-    }
-
     internal static Dictionary<string, string> ToDict(this IConfiguration config)
     {
         return new Dictionary<string, string>(config.GetChildren().Select(s => new KeyValuePair<string, string>(s.Key, s.Value!)));
