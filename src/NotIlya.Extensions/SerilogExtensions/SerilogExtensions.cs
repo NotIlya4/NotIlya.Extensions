@@ -27,16 +27,18 @@ public static class SerilogExtensions
             loggerConfigurator.Enrich.WithProperty("ServiceName", options.ServiceName);
             loggerConfigurator.Enrich.With<XRequestIdEnricher>();
             loggerConfigurator.WriteTo.Console();
+            
             if (options.SeqUrl is not null)
             {
                 loggerConfigurator.WriteTo.Seq(options.SeqUrl);
             }
-            loggerConfigurator.ReadFrom.Configuration(options.SerilogConfig);
 
             if (configureSerilog is not null)
             {
                 configureSerilog(serilogServices, loggerConfigurator);
             }
+            
+            loggerConfigurator.ReadFrom.Configuration(options.SerilogConfig);
         });
     }
 }
