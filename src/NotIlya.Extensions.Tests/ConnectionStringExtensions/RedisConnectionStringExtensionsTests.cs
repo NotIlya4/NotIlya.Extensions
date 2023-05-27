@@ -29,7 +29,6 @@ public class RedisConnectionStringExtensionsTests
     public void GetRedisConnectionStringBuilder_EmptyConfig_DefaultValues()
     {
         var config = new ConfigurationManager();
-        var expect = new RedisConnectionStringBuilder();
 
         RedisConnectionStringBuilder result = config.GetRedisConnectionStringBuilder();
 

@@ -1,6 +1,4 @@
-﻿using System.Text;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace NotIlya.Extensions;
 
@@ -17,18 +15,13 @@ public static class ConfigurationExtensions
         {
             configSection = config as IConfigurationSection ?? throw new InvalidOperationException("Config must be configuration section");
         }
-
-        InvalidOperationException MakeException()
-        {
-            return new InvalidOperationException($"There is no such parameter in configuration in this path {configSection.Path}");
-        }
         
         if (configSection.Value is null)
         {
-            throw MakeException();
+            throw new InvalidOperationException($"There is no such parameter in configuration in this path {configSection.Path}");
         }
 
-        return config.Get<T>() ?? throw MakeException();
+        return configSection.Get<T>() ?? throw new InvalidOperationException($"There is no such parameter in configuration in this path {configSection.Path}");
     }
 
     public static string GetRequiredValue(this IConfiguration config, string? key = null)
