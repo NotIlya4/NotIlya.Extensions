@@ -16,6 +16,7 @@ public class EntityFrameworkExtensionsTests
         _config["SqlServer:Database"] = "Products";
         _config["SqlServer:MigrationsAssembly"] = "Core";
         _config["SqlServer:QueryTrackingBehavior"] = QueryTrackingBehavior.TrackAll.ToString();
+        _config["AutoMigrate"] = "True";
     }
 
     [Fact]
@@ -60,5 +61,22 @@ public class EntityFrameworkExtensionsTests
         NAddEfSqlServerOptions result = _config.GetNAddEfSqlServerOptions("SqlServer");
         
         Assert.Equal(QueryTrackingBehavior.NoTracking, result.QueryTrackingBehavior);
+    }
+
+    [Fact]
+    public void AutoMigrate_AutoMigrateSpecified_ParseAutoMigrate()
+    {
+        bool result = _config.AutoMigrate();
+        Assert.True(result);
+
+        _config["AutoMigrate"] = "False";
+        bool result2 = _config.AutoMigrate();
+        Assert.False(result2);
+    }
+
+    [Fact]
+    public void AutoMigrate_AutoMigrateNotSpecified_ThrowException()
+    {
+        Assert.Throws<InvalidOperationException>(() => _config.AutoMigrate("SqlServer"));
     }
 }

@@ -44,4 +44,11 @@ public static class EntityFrameworkExtensions
             builder.UseQueryTrackingBehavior(options.QueryTrackingBehavior);
         });
     }
+
+    public static bool AutoMigrate(this IConfiguration config, string? key = null)
+    {
+        config = config.ApplyKey(key);
+
+        return config.GetRequiredValue<bool>("AutoMigrate");
+    }
 }

@@ -36,6 +36,8 @@ public static void NAddSerilog(this IServiceCollection services, NAddSerilogOpti
 Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
 ```
 ```csharp
+public static bool AutoMigrate(this IConfiguration config, string? key = null)
+
 public static NAddEfSqlServerOptions GetNAddEfSqlServerOptions(this IConfiguration config, 
 string? key = null)
 
