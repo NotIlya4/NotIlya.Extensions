@@ -7,17 +7,17 @@ namespace NotIlya.Extensions.SerilogExtensions;
 
 public static class SerilogExtensions
 {
-    public static AddSerilogOptions GetAddConfigurationOptions(this IConfiguration config, string? key = null)
+    public static NAddSerilogOptions GetNAddSerilogOptions(this IConfiguration config, string? key = null)
     {
         config = config.ApplyKey(key);
 
         string serviceName = config.GetRequiredValue("ServiceName");
         string? seqUrl = config.GetValue<string>("SeqUrl");
 
-        return new AddSerilogOptions(config, serviceName, seqUrl);
+        return new NAddSerilogOptions(config, serviceName, seqUrl);
     }
     
-    public static void AddConfiguredSerilog(this IServiceCollection services, AddSerilogOptions options, Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
+    public static void NAddSerilog(this IServiceCollection services, NAddSerilogOptions options, Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
     {
         services.AddHttpContextAccessor();
         services.AddSerilog((serilogServices, loggerConfigurator) =>
