@@ -18,29 +18,43 @@ public static T GetRequiredValue<T>(this IConfiguration config, string? key = nu
 ```
 ```csharp
 public static SqlConnectionStringBuilder GetSqlConnectionStringBuilder(
-this IConfiguration config, string? key = null)
+    this IConfiguration config, string? key = null)
 
 public static string GetSqlConnectionString(this IConfiguration config, string? key = null)
 ```
 ```csharp
 public static RedisConnectionStringBuilder GetRedisConnectionStringBuilder(
-this IConfiguration config, string? key = null)
+    this IConfiguration config, string? key = null)
 
 public static string GetRedisConnectionString(this IConfiguration config, string? key = null)
 ```
 ```csharp
 public static NAddSerilogOptions GetNAddSerilogOptions(this IConfiguration config, 
-string? key = null)
+    string? key = null)
 
 public static void NAddSerilog(this IServiceCollection services, NAddSerilogOptions options, 
-Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
+    Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
 ```
 ```csharp
 public static bool AutoMigrate(this IConfiguration config, string? key = null)
 
 public static NAddEfSqlServerOptions GetNAddEfSqlServerOptions(this IConfiguration config, 
-string? key = null)
+    string? key = null)
 
 public static void NAddEfSqlServer<TDbContext>(this IServiceCollection services, 
-NAddEfSqlServerOptions options) where TDbContext : DbContext
+    NAddEfSqlServerOptions options) where TDbContext : DbContext
+```
+
+```csharp
+public static void UsingScope(this IServiceProvider services, 
+    Action<IServiceProvider> scopeAction)
+
+public static void UsingScope<TService>(this IServiceProvider services, 
+    Action<TService> scopeAction) where TService : notnull
+
+public static async Task UsingScopeAsync(this IServiceProvider services, 
+    Func<IServiceProvider, Task> asyncScopeAction)
+
+public static async Task UsingScopeAsync<TService>(this IServiceProvider services, 
+    Func<TService, Task> asyncScopeAction) where TService : notnull
 ```
