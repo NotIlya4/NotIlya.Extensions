@@ -1,8 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using NotIlya.Extensions.ConnectionStringExtensions;
+using NotIlya.Extensions.SqlServer;
 
-namespace NotIlya.Extensions.Tests.ConnectionStringExtensions;
+namespace NotIlya.Extensions.Tests.SqlServer;
 
 public class SqlServerConnectionStringExtensionsTests
 {

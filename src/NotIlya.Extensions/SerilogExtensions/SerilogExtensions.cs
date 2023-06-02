@@ -1,30 +1,39 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NotIlya.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
 
-namespace NotIlya.Extensions.SerilogExtensions;
+namespace NotIlya.Extensions.Serilog;
 
 public static class SerilogExtensions
 {
-    public static NAddSerilogOptions GetNAddSerilogOptions(this IConfiguration config, string? key = null)
+    public static AddSerilogOptions GetAddSerilogOptions(this IConfiguration config, string? key = null)
     {
         config = config.ApplyKey(key);
 
-        string serviceName = config.GetRequiredValue("ServiceName");
+        string? serviceName = config.GetValue<string>("ServiceName");
         string? seqUrl = config.GetValue<string>("SeqUrl");
 
-        return new NAddSerilogOptions(config, serviceName, seqUrl);
+        return new AddSerilogOptions()
+        {
+            SerilogConfig = config,
+            ServiceName = serviceName,
+            SeqUrl = seqUrl
+        };
     }
     
-    public static void NAddSerilog(this IServiceCollection services, NAddSerilogOptions options, Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
+    public static void AddSerilog(this IServiceCollection services, AddSerilogOptions options, Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
     {
         services.AddHttpContextAccessor();
         services.AddSerilog((serilogServices, loggerConfigurator) =>
         {
             loggerConfigurator.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
             loggerConfigurator.Enrich.FromLogContext();
-            loggerConfigurator.Enrich.WithProperty("ServiceName", options.ServiceName);
+            if (options.ServiceName is not null)
+            {
+                loggerConfigurator.Enrich.WithProperty("ServiceName", options.ServiceName);
+            }
             loggerConfigurator.Enrich.With<XRequestIdEnricher>();
             loggerConfigurator.WriteTo.Console();
             

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using NotIlya.Extensions.Configuration;
 
-namespace NotIlya.Extensions.ConnectionStringExtensions;
+namespace NotIlya.Extensions.SqlServer;
 
 public static class SqlServerConnectionStringExtensions
 {

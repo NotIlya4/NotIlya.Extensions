@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NotIlya.Extensions.ConnectionStringExtensions;
+using NotIlya.Extensions.Configuration;
 
-namespace NotIlya.Extensions.EntityFrameworkExtensions;
+namespace NotIlya.Extensions.SqlServer;
 
-public static class EntityFrameworkExtensions
+public static class SqlServerDiExtensions
 {
-    public static NAddEfSqlServerOptions GetNAddEfSqlServerOptions(this IConfiguration config, string? key = null)
+    public static AddEfSqlServerOptions GetAddEfSqlServerOptions(this IConfiguration config, string? key = null)
     {
         config = config.ApplyKey(key);
 
@@ -23,14 +23,14 @@ public static class EntityFrameworkExtensions
         string connectionString = connectionStringConfig.GetSqlConnectionString();
         string? migrationsAssembly = config.GetValue<string>("MigrationsAssembly");
         string? queryTrackingBehavior = config.GetValue<string>("QueryTrackingBehavior");
-        
-        return NAddEfSqlServerOptions.Create(
-            connectionString: connectionString,
-            queryTrackingBehavior: queryTrackingBehavior,
-            migrationsAssembly: migrationsAssembly);
+
+        return new AddEfSqlServerOptions(connectionString, queryTrackingBehavior)
+        {
+            MigrationsAssembly = migrationsAssembly
+        };
     }
     
-    public static void NAddEfSqlServer<TDbContext>(this IServiceCollection services, NAddEfSqlServerOptions options) where TDbContext : DbContext
+    public static void AddEfSqlServer<TDbContext>(this IServiceCollection services, AddEfSqlServerOptions options) where TDbContext : DbContext
     {
         services.AddDbContext<TDbContext>(builder =>
         {
@@ -43,12 +43,5 @@ public static class EntityFrameworkExtensions
             });
             builder.UseQueryTrackingBehavior(options.QueryTrackingBehavior);
         });
-    }
-
-    public static bool AutoMigrate(this IConfiguration config, string? key = null)
-    {
-        config = config.ApplyKey(key);
-
-        return config.GetRequiredValue<bool>("AutoMigrate");
     }
 }

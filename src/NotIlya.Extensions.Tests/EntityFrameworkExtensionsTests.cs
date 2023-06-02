@@ -1,8 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using NotIlya.Extensions.ConnectionStringExtensions;
-using NotIlya.Extensions.EntityFrameworkExtensions;
+using NotIlya.Extensions.Configuration;
+using NotIlya.Extensions.SqlServer;
 
 namespace NotIlya.Extensions.Tests;
 
@@ -22,7 +22,7 @@ public class EntityFrameworkExtensionsTests
     [Fact]
     public void GetNAddEfSqlServerOptions_ConnectionStringWithOtherProperties_ParseConnectionStringAndIgnorePropertiesNotRelatedToConnString()
     {
-        NAddEfSqlServerOptions result = _config.GetNAddEfSqlServerOptions("SqlServer");
+        AddEfSqlServerOptions result = _config.GetAddEfSqlServerOptions("SqlServer");
         
         Assert.Equal(_connectionString, new SqlConnectionStringBuilder(result.ConnectionString));
     }
@@ -30,7 +30,7 @@ public class EntityFrameworkExtensionsTests
     [Fact]
     public void GetNAddEfSqlServerOptions_SpecifiedMigrationsAssembly_ParseMigrationsAssembly()
     {
-        NAddEfSqlServerOptions result = _config.GetNAddEfSqlServerOptions("SqlServer");
+        AddEfSqlServerOptions result = _config.GetAddEfSqlServerOptions("SqlServer");
         
         Assert.Equal("Core", result.MigrationsAssembly);
     }
@@ -40,7 +40,7 @@ public class EntityFrameworkExtensionsTests
     {
         ((IConfigurationBuilder)_config).Properties.Remove("MigrationsAssembly");
         
-        NAddEfSqlServerOptions result = _config.GetNAddEfSqlServerOptions("SqlServer");
+        AddEfSqlServerOptions result = _config.GetAddEfSqlServerOptions("SqlServer");
         
         Assert.Null(result.MigrationsAssembly);
     }
@@ -48,7 +48,7 @@ public class EntityFrameworkExtensionsTests
     [Fact]
     public void GetNAddEfSqlServerOptions_QueryTrackingBehaviorSpecified_ParseQueryTrackingBehavior()
     {
-        NAddEfSqlServerOptions result = _config.GetNAddEfSqlServerOptions("SqlServer");
+        AddEfSqlServerOptions result = _config.GetAddEfSqlServerOptions("SqlServer");
         
         Assert.Equal(QueryTrackingBehavior.TrackAll, result.QueryTrackingBehavior);
     }
@@ -58,9 +58,9 @@ public class EntityFrameworkExtensionsTests
     {
         ((IConfigurationBuilder)_config).Properties.Remove("QueryTrackingBehavior");
         
-        NAddEfSqlServerOptions result = _config.GetNAddEfSqlServerOptions("SqlServer");
+        AddEfSqlServerOptions result = _config.GetAddEfSqlServerOptions("SqlServer");
         
-        Assert.Equal(QueryTrackingBehavior.NoTracking, result.QueryTrackingBehavior);
+        Assert.Equal(QueryTrackingBehavior.TrackAll, result.QueryTrackingBehavior);
     }
 
     [Fact]

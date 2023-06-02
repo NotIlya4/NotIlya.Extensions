@@ -1,4 +1,4 @@
-﻿namespace NotIlya.Extensions.Tests;
+﻿namespace NotIlya.Extensions.Tests.ScopeExtensionsTests;
 
 public class ExampleService : IDisposable, IAsyncDisposable
 {

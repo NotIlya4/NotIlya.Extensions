@@ -1,4 +1,6 @@
-﻿namespace NotIlya.Extensions.Tests;
+﻿using NotIlya.Extensions.String;
+
+namespace NotIlya.Extensions.Tests;
 
 public class StringExtensionsTests
 {

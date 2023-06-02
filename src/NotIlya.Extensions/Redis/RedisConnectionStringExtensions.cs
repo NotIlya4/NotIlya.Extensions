@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using NotIlya.Extensions.Configuration;
 
-namespace NotIlya.Extensions.ConnectionStringExtensions;
+namespace NotIlya.Extensions.Redis;
 
 public static class RedisConnectionStringExtensions
 {

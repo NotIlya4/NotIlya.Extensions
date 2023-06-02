@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using NotIlya.Extensions.String;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace NotIlya.Extensions.SerilogExtensions;
+namespace NotIlya.Extensions.Serilog;
 
 public class XRequestIdEnricher : ILogEventEnricher
 {

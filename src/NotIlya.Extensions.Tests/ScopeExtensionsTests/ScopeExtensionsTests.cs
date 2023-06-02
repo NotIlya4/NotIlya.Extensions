@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NotIlya.Extensions.ServiceProvider;
 
-namespace NotIlya.Extensions.Tests;
+namespace NotIlya.Extensions.Tests.ScopeExtensionsTests;
 
 public class ScopeExtensionsTests
 {

@@ -1,4 +1,4 @@
-﻿namespace NotIlya.Extensions;
+﻿namespace NotIlya.Extensions.String;
 
 public static class StringExtensions
 {

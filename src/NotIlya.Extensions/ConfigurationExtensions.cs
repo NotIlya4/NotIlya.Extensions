@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace NotIlya.Extensions;
+namespace NotIlya.Extensions.Configuration;
 
 public static class ConfigurationExtensions
 {
@@ -27,6 +27,13 @@ public static class ConfigurationExtensions
     public static string GetRequiredValue(this IConfiguration config, string? key = null)
     {
         return config.GetRequiredValue<string>(key);
+    }
+    
+    public static bool AutoMigrate(this IConfiguration config, string? key = null)
+    {
+        config = config.ApplyKey(key);
+
+        return config.GetRequiredValue<bool>("AutoMigrate");
     }
 
     internal static IConfiguration ApplyKey(this IConfiguration config, string? key = null)

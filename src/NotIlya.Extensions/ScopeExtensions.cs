@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NotIlya.Extensions;
+namespace NotIlya.Extensions.ServiceProvider;
 
 public static class ScopeExtensions
 {

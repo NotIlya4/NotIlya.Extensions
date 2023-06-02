@@ -1,4 +1,4 @@
-﻿namespace NotIlya.Extensions.ConnectionStringExtensions;
+﻿namespace NotIlya.Extensions.Redis;
 
 public class RedisConnectionStringBuilder
 {
