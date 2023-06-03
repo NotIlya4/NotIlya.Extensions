@@ -2,9 +2,10 @@
 
 namespace NotIlya.Extensions.Serilog;
 
-public record AddSerilogOptions
+public class AddSerilogOptions
 {
-    public required IConfiguration SerilogConfig { get; set; }
+    public IConfiguration? SerilogConfig { get; set; }
+    public string? SerilogConfigSectionName { get; set; } = "Serilog";
     public string? ServiceName { get; set; }
     public string? SeqUrl { get; set; }
 }

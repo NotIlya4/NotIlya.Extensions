@@ -3,21 +3,23 @@ using Microsoft.Extensions.DependencyInjection;
 using NotIlya.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
+using Serilog.Settings.Configuration;
 
 namespace NotIlya.Extensions.Serilog;
 
 public static class SerilogExtensions
 {
-    public static AddSerilogOptions GetAddSerilogOptions(this IConfiguration config, string? key = null)
+    public static AddSerilogOptions GetAddSerilogOptions(this IConfiguration config, string key)
     {
-        config = config.ApplyKey(key);
+        var innerConfig = config.GetSection(key);
 
-        string? serviceName = config.GetValue<string>("ServiceName");
-        string? seqUrl = config.GetValue<string>("SeqUrl");
+        string? serviceName = innerConfig.GetValue<string>("ServiceName");
+        string? seqUrl = innerConfig.GetValue<string>("SeqUrl");
 
         return new AddSerilogOptions()
         {
             SerilogConfig = config,
+            SerilogConfigSectionName = key,
             ServiceName = serviceName,
             SeqUrl = seqUrl
         };
@@ -36,7 +38,6 @@ public static class SerilogExtensions
             }
             loggerConfigurator.Enrich.With<XRequestIdEnricher>();
             loggerConfigurator.WriteTo.Console();
-            
             if (options.SeqUrl is not null)
             {
                 loggerConfigurator.WriteTo.Seq(options.SeqUrl);
@@ -46,8 +47,13 @@ public static class SerilogExtensions
             {
                 configureSerilog(serilogServices, loggerConfigurator);
             }
-            
-            loggerConfigurator.ReadFrom.Configuration(options.SerilogConfig);
+
+            if (options.SerilogConfig is not null)
+            {
+                loggerConfigurator.ReadFrom.Configuration(options.SerilogConfig,
+                    new ConfigurationReaderOptions()
+                        { SectionName = options.SerilogConfigSectionName });
+            }
         });
     }
 }

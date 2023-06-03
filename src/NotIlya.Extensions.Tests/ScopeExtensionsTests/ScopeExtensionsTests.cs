@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using NotIlya.Extensions.Serilog;
 using NotIlya.Extensions.ServiceProvider;
+using NotIlya.Extensions.SqlServer;
 
 namespace NotIlya.Extensions.Tests.ScopeExtensionsTests;
 
