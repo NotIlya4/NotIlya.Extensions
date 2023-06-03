@@ -15,6 +15,8 @@ $ dotnet add package NotIlya.Extensions
 ## Extensions
 ```csharp
 public static T GetRequiredValue<T>(this IConfiguration config, string? key = null)
+
+public static bool AutoMigrate(this IConfiguration config, string? key = null)
 ```
 ```csharp
 public static SqlConnectionStringBuilder GetSqlConnectionStringBuilder(
@@ -29,22 +31,18 @@ public static RedisConnectionStringBuilder GetRedisConnectionStringBuilder(
 public static string GetRedisConnectionString(this IConfiguration config, string? key = null)
 ```
 ```csharp
-public static NAddSerilogOptions GetNAddSerilogOptions(this IConfiguration config, 
-    string? key = null)
+public static AddSerilogOptions GetAddSerilogOptions(this IConfiguration config, string key)
 
-public static void NAddSerilog(this IServiceCollection services, NAddSerilogOptions options, 
+public static void AddSerilog(this IServiceCollection services, AddSerilogOptions options,
     Action<IServiceProvider, LoggerConfiguration>? configureSerilog = null)
 ```
 ```csharp
-public static bool AutoMigrate(this IConfiguration config, string? key = null)
-
-public static NAddEfSqlServerOptions GetNAddEfSqlServerOptions(this IConfiguration config, 
+public static AddEfSqlServerOptions GetAddEfSqlServerOptions(this IConfiguration config, 
     string? key = null)
 
-public static void NAddEfSqlServer<TDbContext>(this IServiceCollection services, 
-    NAddEfSqlServerOptions options) where TDbContext : DbContext
+public static void AddEfSqlServer<TDbContext>(this IServiceCollection services, 
+    AddEfSqlServerOptions options) where TDbContext : DbContext
 ```
-
 ```csharp
 public static void UsingScope(this IServiceProvider services, 
     Action<IServiceProvider> scopeAction)
