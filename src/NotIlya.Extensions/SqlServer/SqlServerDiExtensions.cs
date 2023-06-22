@@ -30,7 +30,7 @@ public static class SqlServerDiExtensions
         };
     }
     
-    public static void AddEfSqlServer<TDbContext>(this IServiceCollection services, AddEfSqlServerOptions options) where TDbContext : DbContext
+    public static IServiceCollection AddEfSqlServer<TDbContext>(this IServiceCollection services, AddEfSqlServerOptions options) where TDbContext : DbContext
     {
         services.AddDbContext<TDbContext>(builder =>
         {
@@ -43,5 +43,6 @@ public static class SqlServerDiExtensions
             });
             builder.UseQueryTrackingBehavior(options.QueryTrackingBehavior);
         });
+        return services;
     }
 }
