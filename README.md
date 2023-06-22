@@ -12,8 +12,7 @@ or via the .NET Core CLI:
 $ dotnet add package NotIlya.Extensions
 ```
 
-## Docs
-### Serilog Extensions
+## Serilog Extensions
 There is one extension method for `IServiceCollection`:
 ```csharp
 void AddSerilog(this IServiceCollection services, AddSerilogOptions options,
@@ -49,7 +48,7 @@ You can add configured serilog with some predefined enrichers, sinks and other s
 - `ServiceName Enricher` You can provide service name to `` in options and it will be added in log properties.
 - `Seq Logging` You can specify seq url and it will log to seq.
 
-### Redis Extension
+## Redis Extension
 There is one `IServiceCollection` extension that you can use to add Redis clients to your app:
 ```csharp
 IServiceCollection AddRedis(this IServiceCollection services, string connectionString)
@@ -78,7 +77,7 @@ You will need to has config like this:
 }
 ```
 It will be serialized to this: `localhost:6380,redis1:6380,allowAdmin=true,user=admin,password=asdasdasd`. As you can see Server property omits its name but its the only exception.
-### Entity Framework Sql Server Extensions
+## Entity Framework Sql Server Extensions
 You can add entity framework with sql server using:
 ```csharp
 IServiceCollection AddEfSqlServer<TDbContext>(this IServiceCollection services, 
