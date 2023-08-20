@@ -1,4 +1,6 @@
 # NotIlya.Extensions
+⚠️ **Deprecated**. I decided to separate extensions to dedicated nuget packages.
+
 This is a pack of my extensions that I grew tired of copying from one project to another. Its not tied to any specific topic there are extensions for different cases. Currently readme isn't ready I will add description to each extension method later.
 
 ## Instalation
